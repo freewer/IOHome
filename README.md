@@ -1,6 +1,6 @@
 # IOHome
 
-```
+```sh
 ionic setup sass
 
 npm install gulp-jade --save-dev
