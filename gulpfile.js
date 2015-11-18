@@ -9,14 +9,14 @@ var sh = require('shelljs');
 var jade = require( 'gulp-jade');
 
 var paths = {
-    sass: ['.src/scss/**/*.scss'],
-    jade: ['.src/jade/**/*.jade']
+    sass: ['./src/scss/**/*.scss'],
+    jade: ['./src/jade/**/*.jade']
 };
 
 gulp.task('default', ['sass', 'jade']);
 
 gulp.task('sass', function (done) {
-    gulp.src('.src/scss/ionic.app.scss')
+    gulp.src('./src/scss/ionic.app.scss')
         .pipe(sass())
         .on('error', sass.logError)
         .pipe(gulp.dest('./www/css/'))
