@@ -1,0 +1,13 @@
+{
+  "name": "IOHome",
+  "app_id": "",
+  "gulpStartupTasks": [
+    "jade",
+    "sass",
+    "watch"
+  ],
+  "watchPatterns": [
+    "www/**/*",
+    "!www/lib/**/*"
+  ]
+}
