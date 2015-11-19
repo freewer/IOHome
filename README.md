@@ -31,3 +31,8 @@ ionic run android
 ionic serve -c -l //test on browser(-b no open browser)
 gulp build //recompile
 ```
+
+#####color code
+```
+#08ae9e //base color code app
+```
