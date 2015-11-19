@@ -9091,3 +9091,33 @@ a.button {
 
 .info {
   background-color: black; }
+
+.iohome-color-bar {
+  background-color: #08ae9e !important; }
+
+.iohome-button-menu {
+  color: #fff !important; }
+
+.iohome-title-menu {
+  color: #fff;
+  font-size: 19px;
+  line-height: 35px;
+  margin: 0 auto; }
+
+.item {
+  border-color: transparent; }
+
+.iohome-border-menu {
+  border-bottom: solid #c0c0c0 2px; }
+
+.iohome-subs-menu {
+  font-size: 19px;
+  font-weight: 500;
+  margin: 10px 0 0 7px; }
+
+.iohome-icon {
+  height: 30px;
+  width: 30px; }
+
+.iohome-sub-menu {
+  vertical-align: middle; }
