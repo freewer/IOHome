@@ -39,5 +39,6 @@ gulp build //recompile
 
 #####color code
 ```
-#08ae9e //base color code app
+#08ae9e //base color blue&green code app
+#c0c0c0 //color gray code
 ```
