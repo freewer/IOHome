@@ -13,9 +13,14 @@ npm install gulp-jade --save-dev
 cd.. //back
 cd ../user/documents/github/??? //go to path ???
 git status //check
+git commit -am "ok" //commit "ok"
+git add ???/???/??? //add path ???/???/???
 git pull //sync down
 git push //sync up
 git merge ??? //merge ???
+
+head //branch me
++++++ //branch you
 ```
 
 #####ionic
@@ -34,5 +39,6 @@ gulp build //recompile
 
 #####color code
 ```
-#08ae9e //base color code app
+#08ae9e //base color blue&green code app
+#c0c0c0 //color gray code
 ```
