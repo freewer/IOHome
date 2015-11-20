@@ -32,42 +32,41 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         controller: 'AppCtrl'
     })
 
+    .state('app.switch_1', {
+        url: '/switch_1',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/switch_1.html'
+            }
+        }
+    })
+
+    .state('app.switch_2', {
+        url: '/switch_2',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/switch_2.html'
+            }
+        }
+    })
+    .state('app.how_to', {
+        url: '/how_to',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/how_to.html',
+            }
+        }
+    })
+
     .state('app.info', {
         url: '/info',
         views: {
             'menuContent': {
-                templateUrl: 'templates/info.html'
-            }
-        }
-    })
-
-    .state('app.browse', {
-        url: '/browse',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/browse.html'
-            }
-        }
-    })
-    .state('app.playlists', {
-        url: '/playlists',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/playlists.html',
-                controller: 'PlaylistsCtrl'
-            }
-        }
-    })
-
-    .state('app.single', {
-        url: '/playlists/:playlistId',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/playlist.html',
-                controller: 'PlaylistCtrl'
+                templateUrl: 'templates/info.html',
             }
         }
     });
+
 // if none of the above states are matched, use this as the fallback
 $urlRouterProvider.otherwise('/app/info');
 });
