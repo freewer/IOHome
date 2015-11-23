@@ -9178,3 +9178,10 @@ a.button {
 
 .iohome-sub-menu {
   vertical-align: middle; }
+
+.iohome-text-bar {
+  color: #fff; }
+
+.iohome-sub-text-bar {
+  font-size: 10px;
+  margin-left: 2px; }
