@@ -13,7 +13,7 @@ npm install --save-dev gulp-coffee //setup gulp coffee
 
 #####setup icon/splash
 ```
-plugin splash cordova plugin add org.apache.cordova.splashscreen //setup splash
+cordova plugin add org.apache.cordova.splashscreen //setup splash
 
 ionic resources --icon //build icon (size 192*192 px)
 
