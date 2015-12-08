@@ -16,10 +16,13 @@
       url: '/settings'
       views: 'settings-tab':
         controller: 'lightCtrl'
-        templateUrl: 'templates/light.html').state 'about',
+        templateUrl: 'templates/light.html').state('about',
       url: '/about'
       controller: 'AboutCtrl'
-      templateUrl: 'templates/about.html'
+      templateUrl: 'templates/about.html').state 'info',
+      url: '/info'
+#      controller: 'AboutCtrl'
+      templateUrl: 'templates/info.html'
     $urlRouterProvider.otherwise '/tab'
   app.controller 'TabsCtrl', ($scope, $rootScope, $ionicSideMenuDelegate) ->
 
@@ -57,6 +60,7 @@
         alertTime: '20:24'
       }
     ]
+
     $rootScope.dateList = []
     $rootScope.currentLight = 1
 

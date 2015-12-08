@@ -27,6 +27,9 @@
       url: '/about',
       controller: 'AboutCtrl',
       templateUrl: 'templates/about.html'
+    }).state('info', {
+      url: '/info',
+      templateUrl: 'templates/info.html'
     });
     return $urlRouterProvider.otherwise('/tab');
   });
