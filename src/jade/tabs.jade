@@ -1,0 +1,9 @@
+ion-view(title='Home')
+   ion-nav-buttons(side='left')
+      button.button.button-icon.button-clear.ion-navicon(ng-click='openMenu()')
+   ion-tabs.tabs-icon-top.tabs-positive
+      ion-tab(title='หน้าบ้าน', icon='ion-home', href='#/tab/home')
+         ion-nav-view(name='home-tab')
+      ion-tab(title='Settings', icon='ion-gear-a', href='#/tab/settings')
+         ion-nav-view(name='settings-tab')
+      ion-tab(title='Sign-Out', icon='ion-log-out')

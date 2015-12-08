@@ -1,0 +1,30 @@
+ion-view(title='หน้าหลัก')
+   ion-nav-buttons(side='left')
+      button.button.button-icon.button-clear.ion-navicon(ng-click='openMenu()')
+   ion-content(padding='true')
+      h1(style='text-align: center;') คุณหลอดไฟ
+      h2(ng-style="onConnected==false?{'color':'red'}:{'color':'green'}") {{onConnected==false?'Disconnected':'Connected'}}
+      h2 [LOGO HERE]
+      #broker
+         //h3 ws://test.mosquitto.org:8080/mqtt
+         input#connect-button.button.button-block.button-positive(type='button', value='Connect', ng-disabled='onConnected')
+         input#disconnect-button.button.button-block.button-dark(type='button', value='Disconnect', ng-disabled='!onConnected')
+      #subscribe
+         h3 Sub/Unsub
+         list
+            .item.item-input
+               .input-label Topic
+               input#sub-topic-text.txt(type='text', value='{{tropic}}')
+         p
+         input.button.button-small(type='button', value='Subscribe', ng-click='subPlease()')
+         input#unsubscribe-button.button.button-small(type='button', value='Unsubscribe')
+      #publish
+         h3 Message
+         .list
+            .item.item-input
+               .input-label Topic/name
+               input#pub-topic-text.txt(type='text', value='{{tropic}}')
+            .item.item-input
+               .input-label Payload/Message
+               input#payload-text.txt(type='text', value='on')
+         input#publish-button.button.button-block.button-balanced(type='button', value='send')
