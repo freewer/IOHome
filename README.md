@@ -8,6 +8,8 @@ ionic setup sass //setup sass
 
 npm install --save-dev coffee-script //setup coffeescript
 npm install --save-dev gulp-coffee //setup gulp coffee
+npm install -g js2coffee //setup js to coffee
+js2coffee ./www/js/script.js > ./src/coffee/script.coffee //complie js to coffee
 ```
 [Link setup jade](http://forum.ionicframework.com/t/how-to-add-support-for-jade-templates-in-ionic/19681)
 
