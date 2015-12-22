@@ -4,8 +4,9 @@ ion-view(title='IOHome')
    ion-content(padding='true')
       button#lightName.button-block.button-clear.button-dark {{lightList[currentLight].text}}
       p.center-red {{onConnected==false?'กรุณาเชื่อมต่อก่อน':''}}
-      ion-toggle(ng-model="lightList[currentLight].isOn", ng-checked="lightList[currentLight].isOn", ng-disabled='!onConnected', ng-change='switchLight({{currentLight}})') เปิดไฟ {{onConnected}}
-      ion-toggle(ng-model="lightList[currentLight].isAlert", ng-checked="lightList[currentLight].isAlert", ng-disabled='!onConnected', ng-change='') ตั้งเวลาเปิด
+      ion-toggle(ng-model="lightList[currentLight].isOn", ng-checked="lightList[currentLight].isOn", ng-disabled='!onConnected', ng-change='switchLight()') เปิดไฟ
+      ion-toggle(ng-model="lightList[currentLight].isAlert", ng-checked="lightList[currentLight].isAlert", ng-disabled='!onConnected', ng-change='switchAlarm()') ตั้งเวลาเปิด
+      //ปุ่มนาฬิกา
       ionic-timepicker(input-obj='timePickerObject')
          button.button.button-block.button-positive.overflowShow {{lightList[currentLight].alertTime}}
             standard-time-meridian(etime='timePickerObject.inputEpochTime')

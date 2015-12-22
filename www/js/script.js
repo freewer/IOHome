@@ -39,19 +39,19 @@
     };
     $rootScope.lightList = [
       {
-        text: 'หลอดห้องครัว',
+        text: "หลอดห้องครัว",
         isOn: true,
         isAlert: false,
         alertDate: ['sun', 'mon', 'fri'],
         alertTime: '19:00'
       }, {
-        text: 'กลางบ้าน',
+        text: "กลางบ้าน",
         isOn: false,
         isAlert: true,
         alertDate: ['wed', 'thu', 'fri'],
         alertTime: '20:24'
       }, {
-        text: 'บ้าน',
+        text: "บ้าน",
         isOn: false,
         isAlert: true,
         alertDate: ['fri'],
@@ -66,7 +66,6 @@
     };
     return $scope.setDate = function(id, date) {
       var currLight;
-      currLight = void 0;
       currLight = $rootScope.lightList[$rootScope.currentLight].alertDate;
       if (currLight.indexOf(date) !== -1) {
         currLight.splice(currLight.indexOf(date), 1);
@@ -74,16 +73,16 @@
         currLight.push(date);
       }
       console.log(currLight);
+      $rootScope.switchAlarm();
     };
   });
   app.controller('lightCtrl', function($scope, $rootScope, $ionicSideMenuDelegate) {
-    var timePickerCallback;
-    timePickerCallback = void 0;
+    var leadingZero, timePickerCallback;
     $scope.timePickerObject = {
       inputEpochTime: (new Date).getHours() * 60 * 60,
       step: 1,
       format: 12,
-      titleLabel: 'อีก ** ชม. ต่อจากนี้',
+      titleLabel: 'กรุณาตั้งเวลา...',
       setLabel: 'ตั้ง',
       closeLabel: 'ปิด',
       setButtonType: 'button-positive',
@@ -94,18 +93,18 @@
     };
     timePickerCallback = function(val) {
       var selectedTime;
-      selectedTime = void 0;
       if (typeof val === 'undefined') {
         console.log('Time not selected');
       } else {
         selectedTime = new Date(val * 1000);
-        $rootScope.lightList[$rootScope.currentLight].alertTime = selectedTime.getUTCHours() + ':' + selectedTime.getUTCMinutes();
+        $rootScope.lightList[$rootScope.currentLight].alertTime = leadingZero(selectedTime.getUTCHours()) + ':' + leadingZero(selectedTime.getUTCMinutes());
         console.log('scope=' + $rootScope.lightList[$rootScope.currentLight].alertTime);
         console.log('Selected epoch is : ', val, 'and the time is ', selectedTime.getUTCHours(), ':', selectedTime.getUTCMinutes(), 'in UTC');
+        $rootScope.switchAlarm();
       }
     };
     $('.clockpicker').clockpicker();
-    return $scope.dayList = [
+    $scope.dayList = [
       {
         date: 'sun',
         date_th: 'อา'
@@ -129,34 +128,45 @@
         date_th: 'ส'
       }
     ];
+    return leadingZero = function(num) {
+      if (num <= 9) {
+        return '0' + num;
+      } else {
+        return num;
+      }
+    };
   });
   app.controller('HomeTabCtrl', function($scope, $rootScope, $ionicSideMenuDelegate) {
-    var txt_OFF, txt_ON;
-    txt_OFF = void 0;
-    txt_ON = void 0;
+    var splitter, txt_OFF, txt_ON;
     txt_ON = 'on';
     txt_OFF = 'off';
+    splitter = '/';
     $scope.server = 'ws://test.mosquitto.org:8080/mqtt';
     $scope.tropic = 'aW9ob21l';
     $rootScope.onConnected = false;
-    $rootScope.switchLight = function(lightIndex) {
-      console.log('switchLight ID ' + lightIndex);
-      if ($scope.lightList[lightIndex].isOn === false) {
-        return $scope.pubThis('off');
+    $rootScope.switchLight = function() {
+      console.log('switchLight ID ' + $rootScope.currentLight);
+      if ($scope.lightList[$rootScope.currentLight].isOn === false) {
+        return $scope.pubThis('light' + splitter + $rootScope.currentLight + splitter + txt_OFF);
       } else {
-        return $scope.pubThis('on');
+        return $scope.pubThis('light' + splitter + $rootScope.currentLight + splitter + txt_ON);
+      }
+    };
+    $rootScope.switchAlarm = function() {
+      console.log('switchAlarm ID ' + $rootScope.currentLight);
+      if ($scope.lightList[$rootScope.currentLight].isAlert === false) {
+        $scope.pubThis('alert' + splitter + $rootScope.currentLight + splitter + txt_OFF + splitter + $rootScope.lightList[$rootScope.currentLight].alertTime + splitter + $rootScope.lightList[$rootScope.currentLight].alertDate);
+      } else {
+        $scope.pubThis('alert' + splitter + $rootScope.currentLight + splitter + txt_ON + splitter + $rootScope.lightList[$rootScope.currentLight].alertTime + splitter + $rootScope.lightList[$rootScope.currentLight].alertDate);
       }
     };
     return (function() {
       window.Main = {};
       Main.Page = (function() {
         var Page, mosq;
-        Page = void 0;
-        mosq = void 0;
         mosq = null;
         Page = function() {
           var _this;
-          _this = void 0;
           _this = this;
           mosq = new Mosquitto;
           $('#connect-button').click(function() {
@@ -189,13 +199,6 @@
           };
           mosq.onmessage = function(topic, payload, qos) {
             console.log('Publish: ' + topic + '>%c' + payload, 'color:blue');
-            $scope.$apply(function() {
-              var ref;
-              ref = void 0;
-              return $scope.lightList[0].isOn = (ref = payload === txt_ON) !== null ? ref : {
-                'true': false
-              };
-            });
           };
         };
         Page.prototype.connect = function() {
@@ -206,20 +209,16 @@
         };
         Page.prototype.subscribe = function() {
           var topic;
-          topic = void 0;
           topic = $('#sub-topic-text')[0].value;
           mosq.subscribe(topic, 0);
         };
         Page.prototype.unsubscribe = function() {
           var topic;
-          topic = void 0;
           topic = $('#sub-topic-text')[0].value;
           mosq.unsubscribe(topic);
         };
         Page.prototype.publish = function() {
           var payload, topic;
-          payload = void 0;
-          topic = void 0;
           topic = $('#pub-topic-text')[0].value;
           payload = $('#payload-text')[0].value;
           mosq.publish(topic, payload, 0);
@@ -229,8 +228,6 @@
         };
         $scope.pubThis = function(val) {
           var payload, topic;
-          payload = void 0;
-          topic = void 0;
           topic = $scope.tropic;
           payload = val;
           mosq.publish(topic, payload, 0);
