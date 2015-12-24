@@ -39,14 +39,15 @@ head //branch me
 
 #####ionic
 ```
-ionic start <ชื่อโปรเจค> (tabs|blank|sidemenu)
-ionic start myApp tabs
-cd myApp
-ionic serve
-ionic platform add android
-ionic build android
-ionic emulate android
-ionic run android
+ionic start <ชื่อโปรเจค> (tabs|blank|sidemenu) //create project
+ionic start myApp tabs //create projectc(name app and form type)
+cd myApp //open path project
+ionic serve //test on browser
+ionic platform add android //add platform
+ionic browser add crosswalk //add armv7 and x86
+ionic build android //complie apk
+ionic emulate android //run emulator
+ionic run android //install apk in smartphone android
 ionic serve -c -l //test on browser(-b no open browser)
 gulp build //recompile
 ```
