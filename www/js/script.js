@@ -1,6 +1,5 @@
 (function() {
   var app;
-  app = void 0;
   app = angular.module('myApp', ['ionic', 'ionic-timepicker']);
   app.config(function($stateProvider, $urlRouterProvider) {
     $stateProvider.state('tabs', {
@@ -20,16 +19,9 @@
       views: {
         'settings-tab': {
           controller: 'lightCtrl',
-          templateUrl: 'templates/light.html'
+          templateUrl: 'templates/settings.html'
         }
       }
-    }).state('about', {
-      url: '/about',
-      controller: 'AboutCtrl',
-      templateUrl: 'templates/about.html'
-    }).state('info', {
-      url: '/info',
-      templateUrl: 'templates/info.html'
     });
     return $urlRouterProvider.otherwise('/tab');
   });
@@ -49,12 +41,6 @@
         isOn: false,
         isAlert: true,
         alertDate: ['wed', 'thu', 'fri'],
-        alertTime: '20:24'
-      }, {
-        text: "บ้าน",
-        isOn: false,
-        isAlert: true,
-        alertDate: ['fri'],
         alertTime: '20:24'
       }
     ];
