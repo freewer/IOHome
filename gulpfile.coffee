@@ -22,17 +22,17 @@ gulp.task 'default', [
 
 gulp.task 'sass', (done) ->
     gulp.src('./src/scss/ionic.app.scss')
-        .pipe(sass()).on('error',sass.logError)
-        .pipe(gulp.dest('./www/css/'))
-        .pipe(minifyCss(keepSpecialComments: 0))
-        .pipe(rename(extname: '.min.css'))
-        .pipe(gulp.dest('./www/css/')).on 'end', done
+    .pipe(sass()).on('error',sass.logError)
+    .pipe(gulp.dest('./www/css/'))
+    .pipe(minifyCss(keepSpecialComments: 0))
+    .pipe(rename(extname: '.min.css'))
+    .pipe(gulp.dest('./www/css/')).on 'end', done
     return
 
 gulp.task 'jade', (done) ->
     gulp.src(paths.jade)
-        .pipe(jade())
-        .pipe(gulp.dest('./www/templates')).on 'end', done
+    .pipe(jade())
+    .pipe(gulp.dest('./www/templates')).on 'end', done
     return
 
 gulp.task 'coffee', ->
