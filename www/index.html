@@ -22,15 +22,23 @@
         <ion-nav-view></ion-nav-view>
     </ion-pane>
     <ion-side-menu side="left">
-        <ion-header-bar class="bar bar-header bar-dark"></ion-header-bar>
+        <ion-header-bar class="bar bar-header bar-positive"></ion-header-bar>
         <ion-content has-header="true">
             <ion-list>
-                <ion-item href="#/tab/home" menu-close="" class="item-icon-left"><i class="icon ion-home"></i> Home
+                <ion-item href="#/tab/home" menu-close="" class="item-icon-left">
+                    <i class="icon ion-home"></i> Home
                 </ion-item>
                 <ion-item ng-repeat="light in lightList" href="#/tab/settings" ng-click="chooseLight({{$index}})"
-                          menu-close="" class="item-icon-left"><i class="icon ion-lightbulb"></i> {{light.text}}
+                          menu-close="" class="item-icon-left">
+                    <i class="icon"><img src="./img/power.png" width="32px" height="32px"></i> {{light.text}}
                 </ion-item>
-                <!--ion-item(href='#/about', ng-click='chooseLight(2)', menu-close='') หลอดไฟ 2--></ion-list>
+                <ion-item href="#/howto" menu-close="" class="item-icon-left">
+                    <i class="icon"><img src="./img/clipboard.png" width="32px" height="32px"></i> How to
+                </ion-item>
+                <ion-item href="#/into" menu-close="" class="item-icon-left">
+                    <i class="icon"><img src="./img/info.png" width="32px" height="32px"></i> Info
+                </ion-item>
+            </ion-list>
         </ion-content>
     </ion-side-menu>
 </ion-side-menus>
