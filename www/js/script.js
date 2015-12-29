@@ -24,9 +24,11 @@
       }
     }).state('howto', {
       url: '/howto',
+      controller: 'TabsCtrl',
       templateUrl: 'templates/howto.html'
     }).state('info', {
       url: '/info',
+      controller: 'TabsCtrl',
       templateUrl: 'templates/info.html'
     });
     return $urlRouterProvider.otherwise('/tab');

@@ -19,10 +19,10 @@
                     controller: 'lightCtrl'
                     templateUrl: 'templates/settings.html').state('howto',
             url: '/howto'
-#            controller: 'howtoCtrl'
+            controller: 'TabsCtrl'
             templateUrl: 'templates/howto.html').state 'info',
             url: '/info'
-#            controller: 'infoCtrl'
+            controller: 'TabsCtrl'
             templateUrl: 'templates/info.html'
         $urlRouterProvider.otherwise '/tab'
 
