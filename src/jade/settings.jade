@@ -3,7 +3,7 @@ ion-view(title='Settings')
         button.button.button-icon.button-clear.ion-navicon(ng-click='openMenu()')
     ion-content(padding='true')
 
-        button#lightName.button-block.button-clear.button-dark {{lightList[currentLight].text}}
+        h3#lightName.button-block.button-clear.button-dark(style='font-size: 16px;text-align: center;') {{lightList[currentLight].text}}
 
         p.center-red {{onConnected==false?'กรุณาเชื่อมต่อก่อน':''}}
         ion-toggle(ng-model="lightList[currentLight].isOn", ng-checked="lightList[currentLight].isOn", ng-disabled='!onConnected', ng-change='switchLight()') เปิดไฟ
@@ -14,11 +14,3 @@ ion-view(title='Settings')
         ionic-timepicker(input-obj='timePickerObject')
             button.button.button-block.button-positive.overflowShow {{lightList[currentLight].alertTime}}
                 standard-time-meridian(etime='timePickerObject.inputEpochTime')
-
-        //วันที่ตั้ง
-        .button-bar(style='font-size: x-small')
-            a.button(ng-repeat='day in dayList', ng-class="lightList[currentLight].alertDate.indexOf(day.date)!=-1?'button-royal':'button-outline button-royal'", ng-click="setDate($index,day.date)", ng-disabled='!onConnected||!lightList[currentLight].isAlert') {{day.date_th}}
-
-        ion-toggle(ng-model="lightList[currentLight].isAlert", ng-checked="lightList[currentLight].isAlert", ng-disabled='!onConnected', ng-change='') ตั้งเวลาปิด
-        ion-toggle(ng-model="lol", ng-checked="lol") LOL
-        .button.button-small(ng-click='force()') FORCE
