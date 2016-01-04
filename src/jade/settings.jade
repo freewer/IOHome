@@ -14,3 +14,6 @@ ion-view(title='Settings')
         ionic-timepicker(input-obj='timePickerObject')
             button.time.button.button-block.button-positive.overflowShow {{lightList[currentLight].alertTime}}
                 standard-time-meridian(etime='timePickerObject.inputEpochTime')
+
+        ion-toggle(ng-model="lightList[currentLight].alertOff", ng-checked="lightList[currentLight].alertOff", ng-disabled='!onConnected', ng-change='switchAlertOff()') Set Alert OFF
+        .title {{lightList[currentLight].alertOff}}

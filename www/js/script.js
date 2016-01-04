@@ -44,13 +44,15 @@
         isOn: false,
         isAlert: false,
         alertDate: ['sun'],
-        alertTime: '00:00'
+        alertTime: '00:00',
+        alertOff: false
       }, {
         text: "Switch 2",
         isOn: false,
         isAlert: false,
         alertDate: ['sun'],
-        alertTime: '00:00'
+        alertTime: '00:00',
+        alertOff: false
       }
     ];
     $rootScope.dateList = [];
@@ -150,9 +152,17 @@
     $rootScope.switchAlarm = function() {
       console.log('switchAlarm ID ' + $rootScope.currentLight);
       if ($scope.lightList[$rootScope.currentLight].isAlert === false) {
-        $scope.pubThis('alert' + splitter + $rootScope.currentLight + splitter + txt_OFF + splitter + $rootScope.lightList[$rootScope.currentLight].alertTime + splitter + $rootScope.lightList[$rootScope.currentLight].alertDate);
+        return $scope.pubThis('alert' + splitter + $rootScope.currentLight + splitter + txt_OFF + splitter + $rootScope.lightList[$rootScope.currentLight].alertTime + splitter + $rootScope.lightList[$rootScope.currentLight].alertDate);
       } else {
-        $scope.pubThis('alert' + splitter + $rootScope.currentLight + splitter + txt_ON + splitter + $rootScope.lightList[$rootScope.currentLight].alertTime + splitter + $rootScope.lightList[$rootScope.currentLight].alertDate);
+        return $scope.pubThis('alert' + splitter + $rootScope.currentLight + splitter + txt_ON + splitter + $rootScope.lightList[$rootScope.currentLight].alertTime + splitter + $rootScope.lightList[$rootScope.currentLight].alertDate);
+      }
+    };
+    $rootScope.switchAlertOff = function() {
+      console.log('switchAlertOff ID ' + $rootScope.currentLight);
+      if ($scope.lightList[$rootScope.currentLight].alertOff === false) {
+        $scope.pubThis(txt_OFF);
+      } else {
+        $scope.pubThis(txt_ON);
       }
     };
     return (function() {
