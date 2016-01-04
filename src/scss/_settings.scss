@@ -1,6 +1,18 @@
 @charset "UTF-8";
 
 .settings {
+    .item {
+        .item {
+            margin: 0 !important;
+            padding: 0 !important;
+            border-width: 0 !important;
+            height: 32px;
+        }
+        .item-toggle .toggle {
+            top: 0 !important;
+            right: 0 !important;
+        }
+    }
     .title {
         font-size: 24px;
         text-align: center;
