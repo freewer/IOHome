@@ -9760,7 +9760,7 @@ a.button {
 
 .howto .content {
   font-size: 18px;
-  color: red; }
+  color: #444444; }
 
 .info a:link {
   text-decoration: none; }
@@ -9777,6 +9777,7 @@ a.button {
 .info .title {
   text-align: center;
   font-size: 36px;
+  color: #444444;
   margin: 10% 0 10px 0; }
 
 .info .image {
@@ -9797,17 +9798,20 @@ a.button {
 .info .mail {
   text-align: center;
   font-size: 18px;
+  color: #444444;
   margin: 10px 0 10px 0; }
 
 .info .web {
   text-align: center;
   font-size: 18px;
+  color: #444444;
   margin: 10px 0 10px 0;
   text-underline: none; }
 
 .info .version {
   position: absolute;
   text-align: right;
+  color: #444444;
   bottom: 3%;
   right: 5%;
   font-size: 16px; }
