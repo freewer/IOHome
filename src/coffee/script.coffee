@@ -77,7 +77,7 @@
             setLabel: 'SET'
             closeLabel: 'CLOSE'
             setButtonType: 'button-positive'
-            closeButtonType: 'button-stable'
+            closeButtonType: 'button-dark'
             callback: (val) ->
 #Mandatory
                 timePickerCallback val

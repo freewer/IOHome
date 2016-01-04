@@ -1,0 +1,25 @@
+@charset "UTF-8";
+
+.bar-positive {
+    background-color: #08ae9e !important;
+    border-color: #ffffff !important;
+}
+
+.button-positive {
+    background-color: #08ae9e !important;
+    border-color: #ffffff !important;
+}
+
+//color tab android
+.tabs-striped.tabs-positive .tabs {
+    background-color: #08ae9e !important;
+    border-color: #ffffff !important;
+}
+
+//color tab ios
+.tabs-positive {
+    .tabs, .tabs.tabs-positive {
+        background-color: #08ae9e !important;
+        border-color: #ffffff !important;
+    }
+}
