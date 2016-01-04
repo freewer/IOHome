@@ -2,16 +2,21 @@
 
 .settings {
     .item {
+        padding: 13px !important;
         .item {
             margin: 0 !important;
             padding: 0 !important;
             border-width: 0 !important;
-            height: 32px;
+            height: 37px;
         }
         .item-toggle .toggle {
-            top: 0 !important;
-            right: 0 !important;
+            top: 5px !important;
+            right: 3px !important;
         }
+    }
+    .button.button-block, .button.button-full {
+        margin-top: 3px !important;
+        margin-bottom: 0 !important;
     }
     .title {
         font-size: 24px;
