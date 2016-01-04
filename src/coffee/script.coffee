@@ -11,13 +11,19 @@
             url: '/home'
             views:
                 'home-tab':
-                    templateUrl: 'templates/home.html'
-                    controller: 'HomeTabCtrl').state 'tabs.settings',
+                    controller: 'HomeTabCtrl'
+                    templateUrl: 'templates/home.html').state('tabs.settings',
             url: '/settings'
             views:
                 'settings-tab':
                     controller: 'lightCtrl'
-                    templateUrl: 'templates/settings.html'
+                    templateUrl: 'templates/settings.html').state('howto',
+            url: '/howto'
+            controller: 'TabsCtrl'
+            templateUrl: 'templates/howto.html').state 'info',
+            url: '/info'
+            controller: 'TabsCtrl'
+            templateUrl: 'templates/info.html'
         $urlRouterProvider.otherwise '/tab'
 
     app.controller 'TabsCtrl', ($scope, $rootScope, $ionicSideMenuDelegate) ->
@@ -26,8 +32,8 @@
 
         #------รายการหลอด-------#
         $rootScope.lightList = [
-            { text: "หลอดห้องครัว", isOn: true, isAlert: false, alertDate: ['sun','mon','fri'], alertTime: '19:00' }
-            { text: "กลางบ้าน", isOn: false, isAlert: true, alertDate: ['wed','thu','fri'], alertTime: '20:24' }
+            { text: "Switch 1", isOn: true, isAlert: false, alertDate: ['sun','mon','fri'], alertTime: '19:00' }
+            { text: "Switch 2", isOn: false, isAlert: true, alertDate: ['wed','thu','fri'], alertTime: '20:24' }
         ]
         $rootScope.dateList = []
 
@@ -229,11 +235,4 @@
                 Main.controller = new (Main.Page)
             return
         ).call this
-
-    app.controller 'AboutCtrl', ($scope, $ionicSideMenuDelegate) ->
-
-        $scope.openMenu = ->
-            $ionicSideMenuDelegate.toggleLeft()
-
-    return
 ).call this

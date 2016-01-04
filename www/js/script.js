@@ -10,8 +10,8 @@
       url: '/home',
       views: {
         'home-tab': {
-          templateUrl: 'templates/home.html',
-          controller: 'HomeTabCtrl'
+          controller: 'HomeTabCtrl',
+          templateUrl: 'templates/home.html'
         }
       }
     }).state('tabs.settings', {
@@ -22,6 +22,14 @@
           templateUrl: 'templates/settings.html'
         }
       }
+    }).state('howto', {
+      url: '/howto',
+      controller: 'TabsCtrl',
+      templateUrl: 'templates/howto.html'
+    }).state('info', {
+      url: '/info',
+      controller: 'TabsCtrl',
+      templateUrl: 'templates/info.html'
     });
     return $urlRouterProvider.otherwise('/tab');
   });
@@ -31,13 +39,13 @@
     };
     $rootScope.lightList = [
       {
-        text: "หลอดห้องครัว",
+        text: "Switch 1",
         isOn: true,
         isAlert: false,
         alertDate: ['sun', 'mon', 'fri'],
         alertTime: '19:00'
       }, {
-        text: "กลางบ้าน",
+        text: "Switch 2",
         isOn: false,
         isAlert: true,
         alertDate: ['wed', 'thu', 'fri'],
@@ -122,7 +130,7 @@
       }
     };
   });
-  app.controller('HomeTabCtrl', function($scope, $rootScope, $ionicSideMenuDelegate) {
+  return app.controller('HomeTabCtrl', function($scope, $rootScope, $ionicSideMenuDelegate) {
     var splitter, txt_OFF, txt_ON;
     txt_ON = 'on';
     txt_OFF = 'off';
@@ -224,10 +232,5 @@
         return Main.controller = new Main.Page;
       });
     }).call(this);
-  });
-  app.controller('AboutCtrl', function($scope, $ionicSideMenuDelegate) {
-    return $scope.openMenu = function() {
-      return $ionicSideMenuDelegate.toggleLeft();
-    };
   });
 }).call(this);
