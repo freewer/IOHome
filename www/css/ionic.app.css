@@ -9720,6 +9720,10 @@ a.button {
   -webkit-transition-duration: 0s;
   transition-duration: 0s; }
 
+.howto .content {
+  font-size: 18px;
+  color: red; }
+
 .info a:link {
   text-decoration: none; }
 
