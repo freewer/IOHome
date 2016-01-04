@@ -3,8 +3,11 @@
         'ionic'
         'ionic-timepicker'
     ])
-    app.config ($stateProvider, $urlRouterProvider) ->
+    app.config ($stateProvider, $urlRouterProvider, $ionicConfigProvider) ->
+        $ionicConfigProvider.tabs.position 'bottom' # other values: top
         $stateProvider.state('tabs',
+#    app.config ($stateProvider, $urlRouterProvider) ->
+#        $stateProvider.state('tabs',
             url: '/tab'
             controller: 'TabsCtrl'
             templateUrl: 'templates/tabs.html').state('tabs.home',
@@ -25,6 +28,11 @@
             controller: 'TabsCtrl'
             templateUrl: 'templates/info.html'
         $urlRouterProvider.otherwise '/tab'
+
+#    app.config '$ionicConfigProvider', ($ionicConfigProvider) ->
+#        $ionicConfigProvider.tabs.position 'bottom'
+#        # other values: top
+#        return
 
     app.controller 'TabsCtrl', ($scope, $rootScope, $ionicSideMenuDelegate) ->
         $scope.openMenu = ->

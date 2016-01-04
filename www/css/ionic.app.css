@@ -9720,6 +9720,15 @@ a.button {
   -webkit-transition-duration: 0s;
   transition-duration: 0s; }
 
+.tabs-striped .tabs {
+  border-bottom: none !important; }
+
+.tabs-striped.tabs-positive .tab-item {
+  border-width: 0 !important; }
+
+.tabs-striped.tabs-positive .tab-item.tab-item-active {
+  border-width: 0 !important; }
+
 .settings .please-connect {
   color: red; }
 

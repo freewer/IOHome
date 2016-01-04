@@ -1,7 +1,8 @@
 (function() {
   var app;
   app = angular.module('myApp', ['ionic', 'ionic-timepicker']);
-  app.config(function($stateProvider, $urlRouterProvider) {
+  app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+    $ionicConfigProvider.tabs.position('bottom');
     $stateProvider.state('tabs', {
       url: '/tab',
       controller: 'TabsCtrl',
