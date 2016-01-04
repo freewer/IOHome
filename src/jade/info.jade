@@ -1,6 +1,13 @@
 ion-view(title='Info')
    ion-nav-buttons(side='left')
       button.button.button-icon.button-clear.ion-navicon(ng-click='openMenu()')
-   ion-content(padding='true')
+   ion-content.info(padding='true', scroll="false")
 
-      h1(style='text-align: center;') Info
+      .title IOHome
+      .image
+         img.icon(src="./img/info/icon150x150.png")
+      .line
+      .mail iohome@gmail.com
+      a(href="https://github.com/freewer/IOHome")
+         .web https://github.com/freewer/IOHome
+      .version Version 0.1.8

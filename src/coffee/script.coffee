@@ -3,8 +3,11 @@
         'ionic'
         'ionic-timepicker'
     ])
-    app.config ($stateProvider, $urlRouterProvider) ->
+    app.config ($stateProvider, $urlRouterProvider, $ionicConfigProvider) ->
+        $ionicConfigProvider.tabs.position 'bottom' # other values: top
         $stateProvider.state('tabs',
+#    app.config ($stateProvider, $urlRouterProvider) ->
+#        $stateProvider.state('tabs',
             url: '/tab'
             controller: 'TabsCtrl'
             templateUrl: 'templates/tabs.html').state('tabs.home',
@@ -26,14 +29,19 @@
             templateUrl: 'templates/info.html'
         $urlRouterProvider.otherwise '/tab'
 
+#    app.config '$ionicConfigProvider', ($ionicConfigProvider) ->
+#        $ionicConfigProvider.tabs.position 'bottom'
+#        # other values: top
+#        return
+
     app.controller 'TabsCtrl', ($scope, $rootScope, $ionicSideMenuDelegate) ->
         $scope.openMenu = ->
             $ionicSideMenuDelegate.toggleLeft()
 
         #------รายการหลอด-------#
         $rootScope.lightList = [
-            { text: "Switch 1", isOn: true, isAlert: false, alertDate: ['sun','mon','fri'], alertTime: '19:00' }
-            { text: "Switch 2", isOn: false, isAlert: true, alertDate: ['wed','thu','fri'], alertTime: '20:24' }
+            { text: "Switch 1", isOn: false, isAlert: false, alertDate: ['sun'], alertTime: '00:00' }
+            { text: "Switch 2", isOn: false, isAlert: false, alertDate: ['sun'], alertTime: '00:00' }
         ]
         $rootScope.dateList = []
 
@@ -64,10 +72,10 @@
         $scope.timePickerObject =
             inputEpochTime: (new Date).getHours() * 60 * 60
             step: 1
-            format: 12
-            titleLabel: 'กรุณาตั้งเวลา...'
-            setLabel: 'ตั้ง'
-            closeLabel: 'ปิด'
+            format: 24
+            titleLabel: 'Set Alarm ON'
+            setLabel: 'SET'
+            closeLabel: 'CLOSE'
             setButtonType: 'button-positive'
             closeButtonType: 'button-stable'
             callback: (val) ->
