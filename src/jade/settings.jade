@@ -1,14 +1,14 @@
 ion-view(title='Settings')
     ion-nav-buttons(side='left')
         button.button.button-icon.button-clear.ion-navicon(ng-click='openMenu()')
-    ion-content(padding='true')
+    ion-content.settings(padding='true')
 
         h3#lightName.button-block.button-clear.button-dark(style='font-size: 16px;text-align: center;') {{lightList[currentLight].text}}
 
-        p.center-red {{onConnected==false?'กรุณาเชื่อมต่อก่อน':''}}
-        ion-toggle(ng-model="lightList[currentLight].isOn", ng-checked="lightList[currentLight].isOn", ng-disabled='!onConnected', ng-change='switchLight()') เปิดไฟ
+        p.please-connect {{onConnected==false?'Please Connect !':''}}
+        ion-toggle(ng-model="lightList[currentLight].isOn", ng-checked="lightList[currentLight].isOn", ng-disabled='!onConnected', ng-change='switchLight()') ON/OFF
 
-        ion-toggle(ng-model="lightList[currentLight].isAlert", ng-checked="lightList[currentLight].isAlert", ng-disabled='!onConnected', ng-change='switchAlarm()') ตั้งเวลาเปิด
+        ion-toggle(ng-model="lightList[currentLight].isAlert", ng-checked="lightList[currentLight].isAlert", ng-disabled='!onConnected', ng-change='switchAlarm()') Set Alarm ON
 
         //ปุ่มนาฬิกา
         ionic-timepicker(input-obj='timePickerObject')
