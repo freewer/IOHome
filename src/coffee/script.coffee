@@ -3,6 +3,7 @@
         'ionic'
         'ionic-timepicker'
     ])
+
     app.config ($stateProvider, $urlRouterProvider, $ionicConfigProvider) ->
         $ionicConfigProvider.tabs.position 'bottom' # other values: top
         $stateProvider.state('tabs',
@@ -73,7 +74,7 @@
             inputEpochTime: (new Date).getHours() * 60 * 60
             step: 1
             format: 24
-            titleLabel: 'Set Alarm ON'
+            titleLabel: 'Set Time ON'
             setLabel: 'SET'
             closeLabel: 'CLOSE'
             setButtonType: 'button-positive'
@@ -100,7 +101,7 @@
             inputEpochTime: (new Date).getHours() * 60 * 60
             step: 1
             format: 24
-            titleLabel: 'Set Alarm OFF'
+            titleLabel: 'Set Time OFF'
             setLabel: 'SET'
             closeLabel: 'CLOSE'
             setButtonType: 'button-positive'
