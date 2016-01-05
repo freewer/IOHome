@@ -3,14 +3,23 @@ ion-view(title='Settings')
         button.button.button-icon.button-clear.ion-navicon(ng-click='openMenu()')
     ion-content.settings(padding='true')
 
-        h3#lightName.button-block.button-clear.button-dark(style='font-size: 16px;text-align: center;') {{lightList[currentLight].text}}
+        .title {{lightList[currentLight].text}}
 
         p.please-connect {{onConnected==false?'Please Connect !':''}}
         ion-toggle(ng-model="lightList[currentLight].isOn", ng-checked="lightList[currentLight].isOn", ng-disabled='!onConnected', ng-change='switchLight()') ON/OFF
 
-        ion-toggle(ng-model="lightList[currentLight].isAlert", ng-checked="lightList[currentLight].isAlert", ng-disabled='!onConnected', ng-change='switchAlarm()') Set Alarm ON
+        .item
+            ion-toggle(ng-model="lightList[currentLight].isAlert", ng-checked="lightList[currentLight].isAlert", ng-disabled='!onConnected', ng-change='switchAlarm()') Set Alarm ON
 
-        //ปุ่มนาฬิกา
-        ionic-timepicker(input-obj='timePickerObject')
-            button.button.button-block.button-positive.overflowShow {{lightList[currentLight].alertTime}}
-                standard-time-meridian(etime='timePickerObject.inputEpochTime')
+            //ปุ่มนาฬิกาเปิด
+            ionic-timepicker(input-obj='timePickerObject')
+                button.time.button.button-block.button-positive.overflowShow {{lightList[currentLight].alertTime}}
+                    standard-time-meridian(etime='timePickerObject.inputEpochTime')
+
+        .item
+            ion-toggle(ng-model="lightList[currentLight].alertOff", ng-checked="lightList[currentLight].alertOff", ng-disabled='!onConnected', ng-change='switchAlarm()') Set Alert OFF
+
+            //ปุ่มนาฬิกาปิด
+            ionic-timepicker(input-obj='timePickerObjectOff')
+                button.time.button.button-block.button-positive.overflowShow {{lightList[currentLight].alertTimeOff}}
+                    standard-time-meridian(etime='timePickerObjectOff.inputEpochTime')

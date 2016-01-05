@@ -1,7 +1,34 @@
 @charset "UTF-8";
 
 .settings {
+    .item {
+        padding: 13px !important;
+        .item {
+            margin: 0 !important;
+            padding: 0 !important;
+            border-width: 0 !important;
+            height: 37px;
+        }
+        .item-toggle .toggle {
+            top: 5px !important;
+            right: 3px !important;
+        }
+    }
+    .button.button-block, .button.button-full {
+        margin-top: 3px !important;
+        margin-bottom: 0 !important;
+    }
+    .title {
+        font-size: 24px;
+        text-align: center;
+        color: #444444;
+        font-weight: bold;
+    }
     .please-connect {
         color: red;
+    }
+    .time {
+        font-weight: bold;
+        font-size: 18px;
     }
 }

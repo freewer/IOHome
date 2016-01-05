@@ -44,13 +44,17 @@
         isOn: false,
         isAlert: false,
         alertDate: ['sun'],
-        alertTime: '00:00'
+        alertTime: '00:00',
+        alertOff: false,
+        alertTimeOff: '23:59'
       }, {
         text: "Switch 2",
         isOn: false,
         isAlert: false,
         alertDate: ['sun'],
-        alertTime: '00:00'
+        alertTime: '00:00',
+        alertOff: false,
+        alertTimeOff: '23:59'
       }
     ];
     $rootScope.dateList = [];
@@ -72,7 +76,7 @@
     };
   });
   app.controller('lightCtrl', function($scope, $rootScope, $ionicSideMenuDelegate) {
-    var leadingZero, timePickerCallback;
+    var leadingZero, timePickerCallback, timePickerCallbackOff;
     $scope.timePickerObject = {
       inputEpochTime: (new Date).getHours() * 60 * 60,
       step: 1,
@@ -81,7 +85,7 @@
       setLabel: 'SET',
       closeLabel: 'CLOSE',
       setButtonType: 'button-positive',
-      closeButtonType: 'button-stable',
+      closeButtonType: 'button-dark',
       callback: function(val) {
         timePickerCallback(val);
       }
@@ -94,6 +98,31 @@
         selectedTime = new Date(val * 1000);
         $rootScope.lightList[$rootScope.currentLight].alertTime = leadingZero(selectedTime.getUTCHours()) + ':' + leadingZero(selectedTime.getUTCMinutes());
         console.log('scope=' + $rootScope.lightList[$rootScope.currentLight].alertTime);
+        console.log('Selected epoch is : ', val, 'and the time is ', selectedTime.getUTCHours(), ':', selectedTime.getUTCMinutes(), 'in UTC');
+        $rootScope.switchAlarm();
+      }
+    };
+    $scope.timePickerObjectOff = {
+      inputEpochTime: (new Date).getHours() * 60 * 60,
+      step: 1,
+      format: 24,
+      titleLabel: 'Set Alarm OFF',
+      setLabel: 'SET',
+      closeLabel: 'CLOSE',
+      setButtonType: 'button-positive',
+      closeButtonType: 'button-dark',
+      callback: function(val) {
+        timePickerCallbackOff(val);
+      }
+    };
+    timePickerCallbackOff = function(val) {
+      var selectedTime;
+      if (typeof val === 'undefined') {
+        console.log('Time not selected');
+      } else {
+        selectedTime = new Date(val * 1000);
+        $rootScope.lightList[$rootScope.currentLight].alertTimeOff = leadingZero(selectedTime.getUTCHours()) + ':' + leadingZero(selectedTime.getUTCMinutes());
+        console.log('scope=' + $rootScope.lightList[$rootScope.currentLight].alertTimeOff);
         console.log('Selected epoch is : ', val, 'and the time is ', selectedTime.getUTCHours(), ':', selectedTime.getUTCMinutes(), 'in UTC');
         $rootScope.switchAlarm();
       }
@@ -132,13 +161,15 @@
     };
   });
   return app.controller('HomeTabCtrl', function($scope, $rootScope, $ionicSideMenuDelegate) {
-    var splitter, txt_OFF, txt_ON;
+    var alert_OFF, alert_ON, splitter, txt_OFF, txt_ON;
     txt_ON = 'on';
     txt_OFF = 'off';
     splitter = '/';
     $scope.server = 'ws://test.mosquitto.org:8080/mqtt';
     $scope.tropic = 'aW9ob21l';
     $rootScope.onConnected = false;
+    alert_ON = 'blank on';
+    alert_OFF = 'blank off';
     $rootScope.switchLight = function() {
       console.log('switchLight ID ' + $rootScope.currentLight);
       if ($scope.lightList[$rootScope.currentLight].isOn === false) {
@@ -150,9 +181,19 @@
     $rootScope.switchAlarm = function() {
       console.log('switchAlarm ID ' + $rootScope.currentLight);
       if ($scope.lightList[$rootScope.currentLight].isAlert === false) {
-        $scope.pubThis('alert' + splitter + $rootScope.currentLight + splitter + txt_OFF + splitter + $rootScope.lightList[$rootScope.currentLight].alertTime + splitter + $rootScope.lightList[$rootScope.currentLight].alertDate);
+        alert_ON = 'off';
+        $scope.pubThis('alert' + splitter + $rootScope.currentLight + splitter + alert_ON + splitter + $rootScope.lightList[$rootScope.currentLight].alertTime + splitter + $rootScope.lightList[$rootScope.currentLight].alertDate + splitter + $rootScope.lightList[$rootScope.currentLight].alertOff + splitter + $rootScope.lightList[$rootScope.currentLight].alertTimeOff);
+      } else if ($scope.lightList[$rootScope.currentLight].isAlert === true) {
+        alert_ON = 'on';
+        $scope.pubThis('alert' + splitter + $rootScope.currentLight + splitter + alert_ON + splitter + $rootScope.lightList[$rootScope.currentLight].alertTime + splitter + $rootScope.lightList[$rootScope.currentLight].alertDate + splitter + $rootScope.lightList[$rootScope.currentLight].alertOff + splitter + $rootScope.lightList[$rootScope.currentLight].alertTimeOff);
+      } else if ($scope.lightList[$rootScope.currentLight].alertOff === false) {
+        alert_OFF = 'off';
+        $scope.pubThis('alert' + splitter + $rootScope.currentLight + splitter + alert_ON + splitter + $rootScope.lightList[$rootScope.currentLight].alertTime + splitter + $rootScope.lightList[$rootScope.currentLight].alertDate + splitter + $rootScope.lightList[$rootScope.currentLight].alertOff + splitter + $rootScope.lightList[$rootScope.currentLight].alertTimeOff);
+      } else if ($scope.lightList[$rootScope.currentLight].alertOff === true) {
+        alert_OFF = 'on';
+        $scope.pubThis('alert' + splitter + $rootScope.currentLight + splitter + alert_ON + splitter + $rootScope.lightList[$rootScope.currentLight].alertTime + splitter + $rootScope.lightList[$rootScope.currentLight].alertDate + splitter + $rootScope.lightList[$rootScope.currentLight].alertOff + splitter + $rootScope.lightList[$rootScope.currentLight].alertTimeOff);
       } else {
-        $scope.pubThis('alert' + splitter + $rootScope.currentLight + splitter + txt_ON + splitter + $rootScope.lightList[$rootScope.currentLight].alertTime + splitter + $rootScope.lightList[$rootScope.currentLight].alertDate);
+        $scope.pubThis('No Alert');
       }
     };
     return (function() {
