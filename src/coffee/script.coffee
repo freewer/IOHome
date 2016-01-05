@@ -47,7 +47,7 @@
         $rootScope.dateList = []
 
         #-----[Button] ตรวจสอบคลิกหลอด-สำคัญ!!!!----#
-        $rootScope.currentLight = 1
+        $rootScope.currentLight = 0
 
         $rootScope.chooseLight = (light) ->
             console.log('ส่ง' + light)

@@ -58,7 +58,7 @@
       }
     ];
     $rootScope.dateList = [];
-    $rootScope.currentLight = 1;
+    $rootScope.currentLight = 0;
     $rootScope.chooseLight = function(light) {
       console.log('ส่ง' + light);
       return $rootScope.currentLight = light;
