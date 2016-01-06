@@ -34,9 +34,13 @@
     });
     return $urlRouterProvider.otherwise('/tab');
   });
-  app.controller('TabsCtrl', function($scope, $rootScope, $ionicSideMenuDelegate) {
+  app.controller('TabsCtrl', function($scope, $rootScope, $ionicSideMenuDelegate, $state, $ionicHistory) {
     $scope.openMenu = function() {
       return $ionicSideMenuDelegate.toggleLeft();
+    };
+    $scope.back = function() {
+      console.log('back');
+      $ionicHistory.goBack(-1);
     };
     $rootScope.lightList = [
       {

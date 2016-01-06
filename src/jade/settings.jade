@@ -23,3 +23,5 @@ ion-view(title='Settings')
             ionic-timepicker(input-obj='timePickerObjectOff')
                 button.time.button.button-block.button-positive.overflowShow(ng-disabled='!onConnected') {{lightList[currentLight].alertTimeOff}}
                     standard-time-meridian(etime='timePickerObjectOff.inputEpochTime')
+
+        button.button.button-icon.button-clear(ng-click='back()') BACK

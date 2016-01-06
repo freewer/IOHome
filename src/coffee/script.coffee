@@ -4,6 +4,107 @@
         'ionic-timepicker'
     ])
 
+#    app.controller 'DashboardController', ($scope, $state, $ionicPlatform, $location, $ionicHistory) ->
+#      $ionicPlatform.registerBackButtonAction (->
+#        #var path = $location.path()
+#        if $location.path() == '/home' or $location.path() == 'home'
+#          navigator.app.exitApp()
+#        else
+#          $ionicHistory.goBack()
+#          #navigator.app.goBack();
+#        return
+#      ), 100
+#      return
+
+#    app.controller 'ExitCtrl', ($scope, $rootScope) ->
+#        $scope.exit = ->
+#            ionic.Platform.exitApp()
+#            $ionicPlatform.onHardwareBackButton ->
+#                ionic.Platform.exitApp()
+#            return
+
+#    app.run ($rootScope, $ionicPlatform) ->
+#        $ionicPlatform.registerBackButtonAction ((event) ->
+#          if true
+#            # your check here
+#            $ionicPopup.confirm(
+#              title: 'System warning'
+#              template: 'are you sure you want to exit?').then (res) ->
+#              if res
+#                ionic.Platform.exitApp()
+#              return
+#          else
+#            $ionicHistory.goBack()
+#          return
+#        ), 100
+
+#    app.run ($rootScope, $ionicPlatform) ->
+#        $ionicPlatform.onHardwareBackButton ->
+#            ionic.Platform.exitApp()
+#      return
+
+#    .controller 'PlatformCtrl', ($scope) ->
+#      ionic.Platform.onHardwareBackButton ->
+#        ionic.Platform.exitApp()
+#        return
+#      return
+
+#    app.run ($ionicPlatform, $ionicPopup) ->
+#      $ionicPlatform.onHardwareBackButton ->
+#        if true
+#          # your check here
+#          $ionicPopup.confirm(
+#            title: 'System warning'
+#            template: 'are you sure you want to exit?').then (res) ->
+#            if res
+#              navigator.app.exitApp()
+#            return
+#        return
+#      return
+
+#    app.run ($ionicPlatform, $ionicPopup) ->
+#      $ionicPlatform.onHardwareBackButton ->
+#        ionic.Platform.exitApp()
+#      return
+
+#    app.module('PlatformApp', [ 'ionic' ]).controller 'PlatformCtrl', ($scope) ->
+#        ionic.Platform.onHardwareBackButton ->
+#            ionic.Platform.exitApp()
+#            return
+#        return
+
+#    app.run ($rootScope, $ionicPlatform, $ionicHistory) ->
+#        $ionicPlatform.onHardwareBackButton ->
+#            ionic.Platform.exitApp()
+#        return
+
+#    app.run ($rootScope, $ionicPlatform) ->
+#        $ionicPlatform.onHardwareBackButton ->
+#            if $rootScope.backButtonPressedOnceToExit
+#                ionic.Platform.exitApp()
+#            else
+#                ionic.Platform.exitApp()
+#        return
+
+#    app.run ($rootScope, $ionicPlatform, $ionicHistory) ->
+#  $ionicPlatform.registerBackButtonAction ((e) ->
+#    if $rootScope.backButtonPressedOnceToExit
+#      ionic.Platform.exitApp()
+#    else if $ionicHistory.backView()
+#      $ionicHistory.goBack()
+#    else
+#      $rootScope.backButtonPressedOnceToExit = true
+#      window.plugins.toast.showShortCenter 'Press back button again to exit', ((a) ->
+#      ), (b) ->
+#      setTimeout (->
+#        $rootScope.backButtonPressedOnceToExit = false
+#        return
+#      ), 2000
+#    e.preventDefault()
+#    false
+#  ), 101
+#  return
+
     app.config ($stateProvider, $urlRouterProvider, $ionicConfigProvider) ->
         $ionicConfigProvider.tabs.position 'bottom' # other values: top
         $stateProvider.state('tabs',
@@ -30,14 +131,14 @@
             templateUrl: 'templates/info.html'
         $urlRouterProvider.otherwise '/tab'
 
-#    app.config '$ionicConfigProvider', ($ionicConfigProvider) ->
-#        $ionicConfigProvider.tabs.position 'bottom'
-#        # other values: top
-#        return
-
-    app.controller 'TabsCtrl', ($scope, $rootScope, $ionicSideMenuDelegate) ->
+    app.controller 'TabsCtrl', ($scope, $rootScope, $ionicSideMenuDelegate, $state, $ionicHistory) ->
         $scope.openMenu = ->
             $ionicSideMenuDelegate.toggleLeft()
+
+        $scope.back = ->
+            console.log('back')
+            $ionicHistory.goBack -1
+            return
 
         #------รายการหลอด-------#
         $rootScope.lightList = [
