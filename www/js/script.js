@@ -38,10 +38,6 @@
     $scope.openMenu = function() {
       return $ionicSideMenuDelegate.toggleLeft();
     };
-    $scope.back = function() {
-      console.log('back');
-      $ionicHistory.goBack(-1);
-    };
     $rootScope.lightList = [
       {
         text: "Switch 1",
