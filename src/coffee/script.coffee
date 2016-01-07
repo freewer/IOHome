@@ -3,8 +3,12 @@
         'ionic'
         'ionic-timepicker'
     ])
-    app.config ($stateProvider, $urlRouterProvider) ->
+
+    app.config ($stateProvider, $urlRouterProvider, $ionicConfigProvider) ->
+        $ionicConfigProvider.tabs.position 'bottom' # other values: top
         $stateProvider.state('tabs',
+#    app.config ($stateProvider, $urlRouterProvider) ->
+#        $stateProvider.state('tabs',
             url: '/tab'
             controller: 'TabsCtrl'
             templateUrl: 'templates/tabs.html').state('tabs.home',
@@ -26,19 +30,19 @@
             templateUrl: 'templates/info.html'
         $urlRouterProvider.otherwise '/tab'
 
-    app.controller 'TabsCtrl', ($scope, $rootScope, $ionicSideMenuDelegate) ->
+    app.controller 'TabsCtrl', ($scope, $rootScope, $ionicSideMenuDelegate, $state, $ionicHistory) ->
         $scope.openMenu = ->
             $ionicSideMenuDelegate.toggleLeft()
 
         #------รายการหลอด-------#
         $rootScope.lightList = [
-            { text: "Switch 1", isOn: true, isAlert: false, alertDate: ['sun','mon','fri'], alertTime: '19:00' }
-            { text: "Switch 2", isOn: false, isAlert: true, alertDate: ['wed','thu','fri'], alertTime: '20:24' }
+            { text: "Switch 1", isOn: false, isAlert: false, alertDate: ['sun'], alertTime: '00:00', alertOff: false, alertTimeOff: '23:59' }
+            { text: "Switch 2", isOn: false, isAlert: false, alertDate: ['sun'], alertTime: '00:00', alertOff: false, alertTimeOff: '23:59' }
         ]
         $rootScope.dateList = []
 
         #-----[Button] ตรวจสอบคลิกหลอด-สำคัญ!!!!----#
-        $rootScope.currentLight = 1
+        $rootScope.currentLight = 0
 
         $rootScope.chooseLight = (light) ->
             console.log('ส่ง' + light)
@@ -64,12 +68,12 @@
         $scope.timePickerObject =
             inputEpochTime: (new Date).getHours() * 60 * 60
             step: 1
-            format: 12
-            titleLabel: 'กรุณาตั้งเวลา...'
-            setLabel: 'ตั้ง'
-            closeLabel: 'ปิด'
+            format: 24
+            titleLabel: 'Set Time ON'
+            setLabel: 'SET'
+            closeLabel: 'CLOSE'
             setButtonType: 'button-positive'
-            closeButtonType: 'button-stable'
+            closeButtonType: 'button-dark'
             callback: (val) ->
 #Mandatory
                 timePickerCallback val
@@ -87,6 +91,34 @@
                 #--- Apply Alarm ----#
                 $rootScope.switchAlarm()
             return
+
+        $scope.timePickerObjectOff =
+            inputEpochTime: (new Date).getHours() * 60 * 60
+            step: 1
+            format: 24
+            titleLabel: 'Set Time OFF'
+            setLabel: 'SET'
+            closeLabel: 'CLOSE'
+            setButtonType: 'button-positive'
+            closeButtonType: 'button-dark'
+            callback: (val) ->
+#Mandatory
+                timePickerCallbackOff val
+                return
+
+        timePickerCallbackOff = (val) ->
+            if typeof val == 'undefined'
+                console.log 'Time not selected'
+            else
+                selectedTime = new Date(val * 1000)
+                $rootScope.lightList[$rootScope.currentLight].alertTimeOff = leadingZero(selectedTime.getUTCHours())+':'+leadingZero(selectedTime.getUTCMinutes())
+
+                console.log('scope='+$rootScope.lightList[$rootScope.currentLight].alertTimeOff)
+                console.log 'Selected epoch is : ', val, 'and the time is ', selectedTime.getUTCHours(), ':', selectedTime.getUTCMinutes(), 'in UTC'
+                #--- Apply Alarm ----#
+                $rootScope.switchAlarm()
+            return
+
         #$scope.light = $rootScope.currentLight
         $('.clockpicker').clockpicker()
 
@@ -133,6 +165,8 @@
         $scope.tropic = 'aW9ob21l'
         #---dinamic setting---#
         $rootScope.onConnected = false
+        alert_ON = 'blank on'
+        alert_OFF = 'blank off'
 
         #app.controller 'rootCtrl', ($scope, $rootScope) ->
         #---*-*-*-*-*-*-*-*-*-*-*[SUBMIT ZONE]-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*---#
@@ -146,9 +180,27 @@
         $rootScope.switchAlarm = () ->
             console.log('switchAlarm ID ' + $rootScope.currentLight)
             if $scope.lightList[$rootScope.currentLight].isAlert == false
-                $scope.pubThis('alert'+splitter+$rootScope.currentLight+splitter+txt_OFF+splitter+$rootScope.lightList[$rootScope.currentLight].alertTime+splitter+$rootScope.lightList[$rootScope.currentLight].alertDate)
+                alert_ON  = 'off'
+                $scope.pubThis('alert'+splitter+$rootScope.currentLight+splitter+alert_ON+splitter+$rootScope.lightList[$rootScope.currentLight].alertTime+splitter+$rootScope.lightList[$rootScope.currentLight].alertDate+splitter+$rootScope.lightList[$rootScope.currentLight].alertOff+splitter+$rootScope.lightList[$rootScope.currentLight].alertTimeOff)
+            else if $scope.lightList[$rootScope.currentLight].isAlert == true
+                alert_ON  = 'on'
+                $scope.pubThis('alert'+splitter+$rootScope.currentLight+splitter+alert_ON+splitter+$rootScope.lightList[$rootScope.currentLight].alertTime+splitter+$rootScope.lightList[$rootScope.currentLight].alertDate+splitter+$rootScope.lightList[$rootScope.currentLight].alertOff+splitter+$rootScope.lightList[$rootScope.currentLight].alertTimeOff)
+            else if $scope.lightList[$rootScope.currentLight].alertOff == false
+                alert_OFF = 'off'
+                $scope.pubThis('alert'+splitter+$rootScope.currentLight+splitter+alert_ON+splitter+$rootScope.lightList[$rootScope.currentLight].alertTime+splitter+$rootScope.lightList[$rootScope.currentLight].alertDate+splitter+$rootScope.lightList[$rootScope.currentLight].alertOff+splitter+$rootScope.lightList[$rootScope.currentLight].alertTimeOff)
+            else if $scope.lightList[$rootScope.currentLight].alertOff == true
+                alert_OFF = 'on'
+                $scope.pubThis('alert'+splitter+$rootScope.currentLight+splitter+alert_ON+splitter+$rootScope.lightList[$rootScope.currentLight].alertTime+splitter+$rootScope.lightList[$rootScope.currentLight].alertDate+splitter+$rootScope.lightList[$rootScope.currentLight].alertOff+splitter+$rootScope.lightList[$rootScope.currentLight].alertTimeOff)
             else
-                $scope.pubThis('alert'+splitter+$rootScope.currentLight+splitter+txt_ON+splitter+$rootScope.lightList[$rootScope.currentLight].alertTime+splitter+$rootScope.lightList[$rootScope.currentLight].alertDate)
+                $scope.pubThis('No Alert')
+
+#        $rootScope.switchAlertOff = () ->
+#            console.log('switchAlertOff ID ' + $rootScope.currentLight)
+#            if $scope.lightList[$rootScope.currentLight].alertOff == false
+#                $scope.pubThis(txt_OFF)
+#            else
+#                $scope.pubThis(txt_ON)
+
             return
         #-------------------------[Connect script]-------------------------------------
         (->

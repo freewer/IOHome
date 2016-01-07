@@ -9720,9 +9720,62 @@ a.button {
   -webkit-transition-duration: 0s;
   transition-duration: 0s; }
 
+.tabs-striped .tabs {
+  border-bottom: none !important; }
+
+.tabs-striped.tabs-positive .tab-item {
+  border-width: 0 !important; }
+
+.tabs-striped.tabs-positive .tab-item.tab-item-active {
+  border-width: 0 !important; }
+
+.bar-positive {
+  background-color: #08ae9e !important;
+  border-color: #ffffff !important; }
+
+.button-positive {
+  background-color: #08ae9e !important;
+  border-color: #ffffff !important; }
+
+.tabs-striped.tabs-positive .tabs {
+  background-color: #08ae9e !important;
+  border-color: #ffffff !important; }
+
+.tabs-positive .tabs, .tabs-positive .tabs.tabs-positive {
+  background-color: #08ae9e !important;
+  border-color: #ffffff !important; }
+
+.settings .item {
+  padding: 13px !important; }
+  .settings .item .item {
+    margin: 0 !important;
+    padding: 0 !important;
+    border-width: 0 !important;
+    height: 37px; }
+  .settings .item .item-toggle .toggle {
+    top: 5px !important;
+    right: 3px !important; }
+
+.settings .button.button-block, .settings .button.button-full {
+  margin-top: 3px !important;
+  margin-bottom: 0 !important; }
+
+.settings .title {
+  font-size: 24px;
+  text-align: center;
+  color: #444444;
+  font-weight: bold; }
+
+.settings .please-connect {
+  color: red; }
+
+.settings .time {
+  font-weight: bold;
+  font-size: 18px; }
+
 .howto .content {
   font-size: 18px;
-  color: red; }
+  color: #444444; }
 
 .info a:link {
   text-decoration: none; }
@@ -9739,6 +9792,7 @@ a.button {
 .info .title {
   text-align: center;
   font-size: 36px;
+  color: #444444;
   margin: 10% 0 10px 0; }
 
 .info .image {
@@ -9759,17 +9813,20 @@ a.button {
 .info .mail {
   text-align: center;
   font-size: 18px;
+  color: #444444;
   margin: 10px 0 10px 0; }
 
 .info .web {
   text-align: center;
   font-size: 18px;
+  color: #444444;
   margin: 10px 0 10px 0;
   text-underline: none; }
 
 .info .version {
   position: absolute;
   text-align: right;
+  color: #444444;
   bottom: 3%;
   right: 5%;
   font-size: 16px; }

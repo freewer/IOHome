@@ -1,0 +1,16 @@
+@charset "UTF-8";
+
+.tabs-striped .tabs {
+    //border-bottom: 1px solid #ddd;
+    border-bottom: none !important;
+}
+
+.tabs-striped.tabs-positive .tab-item {
+    //border-width: 2px 0 0 0;
+    border-width: 0 !important;
+}
+
+.tabs-striped.tabs-positive .tab-item.tab-item-active {
+    //border-width: 2px 0 0 0;
+    border-width: 0 !important;
+}
