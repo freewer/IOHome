@@ -9745,6 +9745,20 @@ a.button {
   background-color: #08ae9e !important;
   border-color: #ffffff !important; }
 
+.home {
+  position: relative; }
+  .home .image {
+    width: 120px;
+    height: auto;
+    top: 24%;
+    right: 5%;
+    position: absolute;
+    z-index: 3;
+    opacity: 1; }
+  .home .touch {
+    width: 120px;
+    height: 120px; }
+
 .settings .item {
   padding: 13px !important; }
   .settings .item .item {

@@ -1,10 +1,13 @@
 ion-view(title='IOHome')
     ion-nav-buttons(side='left')
         button.button.button-icon.button-clear.ion-navicon(ng-click='openMenu()')
-    ion-content(padding='true')
+    ion-content.home(padding='true')
 
         h2(ng-style="onConnected==false?{'color':'red'}:{'color':'green'}", style='text-align: center;') {{onConnected==false?'Disconnected':'Connected'}}
         #broker
             //h3 ws://test.mosquitto.org:8080/mqtt
             input#connect-button.button.button-block.button-positive(type='button', value='Connect', ng-disabled='onConnected')
             input#disconnect-button.button.button-block.button-dark(type='button', value='Disconnect', ng-disabled='!onConnected')
+        
+        .image
+            img.touch(src="./img/touch_app.png" ng-style="onConnected==false?{'opacity':'1'}:{'opacity':'0'}")
