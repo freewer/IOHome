@@ -1,11 +1,11 @@
 <html ng-app="myApp">
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width"/>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <title>IOHome</title>
-    <link rel="stylesheet prefetch" href="css/ionic.app.min.css"/>
-    <link rel="stylesheet prefetch" href="lib/ionic/css/ionic.min.css"/>
-    <link rel="stylesheet prefetch" href="css/jquery-clockpicker.min.css"/>
+    <link rel="stylesheet prefetch" href="css/ionic.app.min.css">
+    <link rel="stylesheet prefetch" href="lib/ionic/css/ionic.min.css">
+    <link rel="stylesheet prefetch" href="css/jquery-clockpicker.min.css">
     <script src="js/ionic.bundle.min.js"></script>
     <script src="js/mosquitto.js"></script>
     <script src="js/jquery-1.7.2.min.js"></script>
@@ -29,8 +29,7 @@
                 <ion-item href="#/tab/home" menu-close="" class="item-icon-left">
                     <i class="icon ion-home"></i> Home
                 </ion-item>
-                <ion-item ng-repeat="light in lightList" href="#/tab/settings" ng-click="chooseLight({{$index}})"
-                          menu-close="" class="item-icon-left">
+                <ion-item ng-repeat="light in lightList" href="#/tab/settings" ng-click="chooseLight({{$index}})" menu-close="" class="item-icon-left">
                     <i class="icon"><img src="./img/switch.png" width="32px" height="32px"></i> {{light.text}}
                 </ion-item>
                 <ion-item href="#/howto" menu-close="" class="item-icon-left">
