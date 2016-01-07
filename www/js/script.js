@@ -34,7 +34,7 @@
     });
     return $urlRouterProvider.otherwise('/tab');
   });
-  app.controller('TabsCtrl', function($scope, $rootScope, $ionicSideMenuDelegate) {
+  app.controller('TabsCtrl', function($scope, $rootScope, $ionicSideMenuDelegate, $state, $ionicHistory) {
     $scope.openMenu = function() {
       return $ionicSideMenuDelegate.toggleLeft();
     };
@@ -81,7 +81,7 @@
       inputEpochTime: (new Date).getHours() * 60 * 60,
       step: 1,
       format: 24,
-      titleLabel: 'Set Alarm ON',
+      titleLabel: 'Set Time ON',
       setLabel: 'SET',
       closeLabel: 'CLOSE',
       setButtonType: 'button-positive',
@@ -106,7 +106,7 @@
       inputEpochTime: (new Date).getHours() * 60 * 60,
       step: 1,
       format: 24,
-      titleLabel: 'Set Alarm OFF',
+      titleLabel: 'Set Time OFF',
       setLabel: 'SET',
       closeLabel: 'CLOSE',
       setButtonType: 'button-positive',

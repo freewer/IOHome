@@ -3,6 +3,7 @@
         'ionic'
         'ionic-timepicker'
     ])
+
     app.config ($stateProvider, $urlRouterProvider, $ionicConfigProvider) ->
         $ionicConfigProvider.tabs.position 'bottom' # other values: top
         $stateProvider.state('tabs',
@@ -29,12 +30,7 @@
             templateUrl: 'templates/info.html'
         $urlRouterProvider.otherwise '/tab'
 
-#    app.config '$ionicConfigProvider', ($ionicConfigProvider) ->
-#        $ionicConfigProvider.tabs.position 'bottom'
-#        # other values: top
-#        return
-
-    app.controller 'TabsCtrl', ($scope, $rootScope, $ionicSideMenuDelegate) ->
+    app.controller 'TabsCtrl', ($scope, $rootScope, $ionicSideMenuDelegate, $state, $ionicHistory) ->
         $scope.openMenu = ->
             $ionicSideMenuDelegate.toggleLeft()
 
@@ -73,7 +69,7 @@
             inputEpochTime: (new Date).getHours() * 60 * 60
             step: 1
             format: 24
-            titleLabel: 'Set Alarm ON'
+            titleLabel: 'Set Time ON'
             setLabel: 'SET'
             closeLabel: 'CLOSE'
             setButtonType: 'button-positive'
@@ -100,7 +96,7 @@
             inputEpochTime: (new Date).getHours() * 60 * 60
             step: 1
             format: 24
-            titleLabel: 'Set Alarm OFF'
+            titleLabel: 'Set Time OFF'
             setLabel: 'SET'
             closeLabel: 'CLOSE'
             setButtonType: 'button-positive'
