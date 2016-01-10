@@ -1,6 +1,6 @@
 {
   "name": "IOHome",
-  "app_id": "",
+  "app_id": "fc24cebb",
   "gulpStartupTasks": [
     "jade",
     "sass",
