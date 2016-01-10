@@ -9773,9 +9773,24 @@ a.button {
   font-weight: bold;
   font-size: 18px; }
 
+.howto .description {
+  font-size: 14px;
+  color: #444444;
+  text-indent: 30px;
+  text-align: justify;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 20px; }
+
+.howto .title {
+  color: #444444;
+  font-size: 18px;
+  font-weight: bold; }
+
 .howto .content {
   font-size: 18px;
-  color: #444444; }
+  color: #444444;
+  margin-left: 20px; }
 
 .info a:link {
   text-decoration: none; }

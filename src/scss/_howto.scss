@@ -1,8 +1,23 @@
 @charset "UTF-8";
 
 .howto {
+    .description {
+        font-size: 14px;
+        color: #444444;
+        text-indent: 30px;
+        text-align: justify;
+        margin-left:10px;
+        margin-right: 10px;
+        margin-bottom: 20px;
+    }
+    .title {
+        color: #444444;
+        font-size: 18px;
+        font-weight: bold;
+    }
     .content {
         font-size: 18px;
         color: #444444;
+        margin-left: 20px;
     }
 }
