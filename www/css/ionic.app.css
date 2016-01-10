@@ -9796,10 +9796,17 @@ a.button {
   margin-right: 10px;
   margin-bottom: 20px; }
 
+.howto .line {
+  background-color: #c0c0c0;
+  width: 80%;
+  height: 2px;
+  margin: 0 auto; }
+
 .howto .title {
   color: #444444;
   font-size: 18px;
-  font-weight: bold; }
+  font-weight: bold;
+  margin-top: 10px; }
 
 .howto .content {
   font-size: 18px;
