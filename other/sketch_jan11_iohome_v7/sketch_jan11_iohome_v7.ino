@@ -10,6 +10,11 @@ RTCDateTime dt;
 
 #define RELAY1 8
 #define RELAY2 9
+#define LED1 2
+#define LED2 3
+#define LED3 6
+#define LED4 7
+#define LED5 8
 
 char MQTT_SERVER[] = "test.mosquitto.org";
 char* inTopic = "aW9ob21l";
@@ -42,7 +47,12 @@ void setup() {
   
   pinMode(RELAY1, OUTPUT);
   pinMode(RELAY2, OUTPUT);
-
+  pinMode(LED1, OUTPUT);
+  pinMode(LED2, OUTPUT);
+  pinMode(LED3, OUTPUT);
+  pinMode(LED4, OUTPUT);
+  pinMode(LED5, OUTPUT);
+  
   clock.begin();
 //  clock.setDateTime(__DATE__, __TIME__);
 
@@ -152,6 +162,37 @@ void loop() {
       Serial.println("No Message Alert");
     }
   }
+  //------------ON/OFF Model--------------------
+  else if (_method == "1on") {
+    digitalWrite(LED1, HIGH);
+    }
+  else if (_method == "1off") {
+    digitalWrite(LED1, LOW);
+    }
+  else if (_method == "2on") {
+    digitalWrite(LED2, HIGH);
+    }
+  else if (_method == "2off") {
+    digitalWrite(LED2, LOW);
+    }
+  else if (_method == "3on") {
+    digitalWrite(LED3, HIGH);
+    }
+  else if (_method == "3off") {
+    digitalWrite(LED3, LOW);
+    }
+  else if (_method == "4on") {
+    digitalWrite(LED4, HIGH);
+    }
+  else if (_method == "4off") {
+    digitalWrite(LED4, LOW);
+    }
+  else if (_method == "5on") {
+    digitalWrite(LED5, HIGH);
+    }
+  else if (_method == "5off") {
+    digitalWrite(LED5, LOW);
+    }
   else {
     Serial.println("No Message");
   }
