@@ -9748,16 +9748,16 @@ a.button {
 .home {
   position: relative; }
   .home .image {
-    width: 120px;
+    width: 76px;
     height: auto;
-    top: 24%;
+    top: 32%;
     right: 5%;
     position: absolute;
     z-index: 3;
     opacity: 1; }
   .home .touch {
-    width: 120px;
-    height: 120px; }
+    width: 76px;
+    height: 105px; }
 
 .settings .item {
   padding: 13px !important; }

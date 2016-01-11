@@ -1,0 +1,15 @@
+ion-view(title='Development')
+   ion-nav-buttons(side='left')
+      button.button.button-icon.button-clear.ion-navicon(ng-click='openMenu()')
+   ion-content.info(padding='true', scroll="false")
+
+      h4 Turn on/off LED model
+      p(style='color: red;') {{onConnected==false?'Please Connect !':''}}
+      .list
+         .item.item-input
+            .input-label LED :
+            input#pub-led-text.txt(type='text', placeholder='1-5')
+         .item.item-input
+            .input-label ON/OFF :
+            input#pub-switch-text.txt(type='text', placeholder='on/off')
+      input#publish-button.button.button-block.button-balanced(type='button', value='Send')
