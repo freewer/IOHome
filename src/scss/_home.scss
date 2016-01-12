@@ -27,10 +27,9 @@
 .home {
     position: relative;
     .image {
-        //margin: 10px auto;
-        width: 120px;
+        width: 76px;
         height: auto;
-        top: 24%;
+        top: 32%;
         right: 5%;
         position: absolute;
         z-index: 3;
@@ -39,7 +38,7 @@
     }
 
     .touch {
-        width: 120px;
-        height: 120px;
+        width: 76px;
+        height: 105px;
     }
 }

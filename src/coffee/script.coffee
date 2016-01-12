@@ -23,11 +23,14 @@
                     controller: 'lightCtrl'
                     templateUrl: 'templates/settings.html').state('howto',
             url: '/howto'
-            controller: 'TabsCtrl'
-            templateUrl: 'templates/howto.html').state 'info',
+            controller: 'DevCtrl'
+            templateUrl: 'templates/howto.html').state('info',
             url: '/info'
-            controller: 'TabsCtrl'
-            templateUrl: 'templates/info.html'
+            controller: 'DevCtrl'
+            templateUrl: 'templates/info.html').state 'dev',
+            url: '/dev'
+            controller: 'DevCtrl'
+            templateUrl: 'templates/dev.html'
         $urlRouterProvider.otherwise '/tab'
 
     app.controller 'TabsCtrl', ($scope, $rootScope, $ionicSideMenuDelegate, $state, $ionicHistory) ->
@@ -157,7 +160,7 @@
             if num <= 9 then '0' + num else num
 
     app.controller 'HomeTabCtrl', ($scope, $rootScope, $ionicSideMenuDelegate) ->
-#----setting----#
+        #----setting----#
         txt_ON = 'on'
         txt_OFF = 'off'
         splitter = '/'
@@ -266,8 +269,139 @@
                     return
 
                 Page::publish = ->
-                    topic = $('#pub-topic-text')[0].value
-                    payload = $('#payload-text')[0].value
+                    console.log($('#pub-led-text')[0].value+$('#pub-switch-text')[0].value)
+                    mosq.connect $scope.server
+                    topic = $scope.tropic
+                    payload = $('#pub-led-text')[0].value+$('#pub-switch-text')[0].value
+                    mosq.publish topic, payload, 0
+                    return
+
+                #------------- ส่วนเขียนเพิ่ม -------------
+                $scope.subPlease = () ->
+                    mosq.subscribe $scope.tropic, 0
+
+                $scope.pubThis = (val) ->
+                    topic = $scope.tropic
+                    payload = val
+                    mosq.publish topic, payload, 0
+                    return
+
+                #------------- END ส่วนเขียนเพิ่ม -------------
+                Page
+            $ ->
+                Main.controller = new (Main.Page)
+            return
+        ).call this
+
+    app.controller 'DevCtrl', ($scope, $rootScope, $ionicSideMenuDelegate, $state, $ionicHistory) ->
+        $scope.openMenu = ->
+            $ionicSideMenuDelegate.toggleLeft()
+
+        $rootScope.lightList = [
+            { text: "Switch 1", isOn: false, isAlert: false, alertDate: ['sun'], alertTime: '00:00', alertOff: false, alertTimeOff: '23:59' }
+            { text: "Switch 2", isOn: false, isAlert: false, alertDate: ['sun'], alertTime: '00:00', alertOff: false, alertTimeOff: '23:59' }
+        ]
+
+        #----setting----#
+        txt_ON = 'on'
+        txt_OFF = 'off'
+        splitter = '/'
+        $scope.server = 'ws://test.mosquitto.org:8080/mqtt'
+        $scope.tropic = 'aW9ob21l'
+        #---dinamic setting---#
+        $rootScope.onConnected = false
+        alert_ON = 'blank on'
+        alert_OFF = 'blank off'
+
+        #---*-*-*-*-*-*-*-*-*-*-*[SUBMIT ZONE]-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*---#
+        $rootScope.switchLight = () ->
+            console.log('switchLight ID ' + $rootScope.currentLight)
+            if $scope.lightList[$rootScope.currentLight].isOn == false
+                $scope.pubThis('light'+splitter+$rootScope.currentLight+splitter+txt_OFF)
+            else
+                $scope.pubThis('light'+splitter+$rootScope.currentLight+splitter+txt_ON)
+
+        $rootScope.switchAlarm = () ->
+            console.log('switchAlarm ID ' + $rootScope.currentLight)
+            if $scope.lightList[$rootScope.currentLight].isAlert == false
+                alert_ON  = 'off'
+                $scope.pubThis('alert'+splitter+$rootScope.currentLight+splitter+alert_ON+splitter+$rootScope.lightList[$rootScope.currentLight].alertTime+splitter+$rootScope.lightList[$rootScope.currentLight].alertDate+splitter+$rootScope.lightList[$rootScope.currentLight].alertOff+splitter+$rootScope.lightList[$rootScope.currentLight].alertTimeOff)
+            else if $scope.lightList[$rootScope.currentLight].isAlert == true
+                alert_ON  = 'on'
+                $scope.pubThis('alert'+splitter+$rootScope.currentLight+splitter+alert_ON+splitter+$rootScope.lightList[$rootScope.currentLight].alertTime+splitter+$rootScope.lightList[$rootScope.currentLight].alertDate+splitter+$rootScope.lightList[$rootScope.currentLight].alertOff+splitter+$rootScope.lightList[$rootScope.currentLight].alertTimeOff)
+            else if $scope.lightList[$rootScope.currentLight].alertOff == false
+                alert_OFF = 'off'
+                $scope.pubThis('alert'+splitter+$rootScope.currentLight+splitter+alert_ON+splitter+$rootScope.lightList[$rootScope.currentLight].alertTime+splitter+$rootScope.lightList[$rootScope.currentLight].alertDate+splitter+$rootScope.lightList[$rootScope.currentLight].alertOff+splitter+$rootScope.lightList[$rootScope.currentLight].alertTimeOff)
+            else if $scope.lightList[$rootScope.currentLight].alertOff == true
+                alert_OFF = 'on'
+                $scope.pubThis('alert'+splitter+$rootScope.currentLight+splitter+alert_ON+splitter+$rootScope.lightList[$rootScope.currentLight].alertTime+splitter+$rootScope.lightList[$rootScope.currentLight].alertDate+splitter+$rootScope.lightList[$rootScope.currentLight].alertOff+splitter+$rootScope.lightList[$rootScope.currentLight].alertTimeOff)
+            else
+                $scope.pubThis('No Alert')
+            return
+        #-------------------------[Connect script]-------------------------------------
+        (->
+            window.Main = {}
+            Main.Page = do ->
+                mosq = null
+
+                Page = ->
+                    _this = this
+                    mosq = new Mosquitto
+                    $('#connect-button').click ->
+                        _this.connect()
+                    $('#disconnect-button').click ->
+                        _this.disconnect()
+                    $('#subscribe-button').click ->
+                        _this.subscribe()
+                    $('#unsubscribe-button').click ->
+                        _this.unsubscribe()
+                    $('#publish-button').click ->
+                        _this.publish()
+                    #------EVENT------#
+                    mosq.onconnect = (rc) ->
+                    #--ทำการ Subscribe ต่อ--#
+                        $scope.subPlease()
+
+                        $scope.$apply ->
+                            $rootScope.onConnected = true
+                        console.log('%cconnected' + rc + $rootScope.onConnected, 'background-color:green; color:white')
+                        return
+
+                    mosq.ondisconnect = (rc) ->
+                        $scope.$apply ->
+                            $rootScope.onConnected = false
+                        console.log('%cDisconnected', 'background-color:red; color:white')
+                        return
+
+                    mosq.onmessage = (topic, payload, qos) ->
+                        console.log('Publish: ' + topic + '>%c' + payload, 'color:blue')
+                        return
+
+                    return
+                #--------------- เชื่อม  server ----------------#
+                Page::connect = ->
+                    mosq.connect $scope.server
+                    return
+
+                Page::disconnect = ->
+                    mosq.disconnect()
+                    return
+
+                Page::subscribe = ->
+                    topic = $('#sub-topic-text')[0].value
+                    mosq.subscribe topic, 0
+                    return
+
+                Page::unsubscribe = ->
+                    topic = $('#sub-topic-text')[0].value
+                    mosq.unsubscribe topic
+                    return
+
+                Page::publish = ->
+                    console.log($('#pub-led-text')[0].value+$('#pub-switch-text')[0].value)
+                    mosq.connect $scope.server
+                    topic = $scope.tropic
+                    payload = $('#pub-led-text')[0].value+$('#pub-switch-text')[0].value
                     mosq.publish topic, payload, 0
                     return
 
