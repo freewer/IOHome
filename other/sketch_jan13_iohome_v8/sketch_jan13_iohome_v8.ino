@@ -8,12 +8,16 @@
 DS3231 clock;
 RTCDateTime dt;
 
-#define RELAY1 8
-#define RELAY2 9
+#define RELAY1 4
+#define RELAY2 5
+#define LED1 6
+#define LED2 7
+#define LED3 8
+int STATUS = A0;
 
 char MQTT_SERVER[] = "test.mosquitto.org";
 char* inTopic = "aW9ob21l";
-char* clientId = "0";
+char* clientId = "iohome0x0000";
 byte mac[] = { 0x18, 0xfe, 0x34, 0xda, 0xbf, 0x1a };
 int check = 1;
 
@@ -42,7 +46,10 @@ void setup() {
   
   pinMode(RELAY1, OUTPUT);
   pinMode(RELAY2, OUTPUT);
-
+  pinMode(LED1, OUTPUT);
+  pinMode(LED2, OUTPUT);
+  pinMode(LED3, OUTPUT);
+  
   clock.begin();
 //  clock.setDateTime(__DATE__, __TIME__);
 
@@ -152,6 +159,25 @@ void loop() {
       Serial.println("No Message Alert");
     }
   }
+  //------------ON/OFF Model--------------------
+  else if (_method == "1on") {
+    digitalWrite(LED1, HIGH);
+    }
+  else if (_method == "1off") {
+    digitalWrite(LED1, LOW);
+    }
+  else if (_method == "2on") {
+    digitalWrite(LED2, HIGH);
+    }
+  else if (_method == "2off") {
+    digitalWrite(LED2, LOW);
+    }
+  else if (_method == "3on") {
+    digitalWrite(LED3, HIGH);
+    }
+  else if (_method == "3off") {
+    digitalWrite(LED3, LOW);
+    }
   else {
     Serial.println("No Message");
   }
@@ -241,11 +267,10 @@ void connect() {
     if (client.connect(clientId)) {
       Serial.println("Successfully connected with MQTT");
       client.subscribe(inTopic); // Subcribe
-      
+      analogWrite(STATUS, 255);
       check = 0;
     } else {
       Serial.println("cant connected with MQTT");
     }
   }
 }
-
