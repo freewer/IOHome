@@ -5,7 +5,6 @@ ion-view(title='IOHome')
 
         h2(ng-style="onConnected==false?{'color':'red'}:{'color':'green'}", style='text-align: center;') {{onConnected==false?'Disconnected':'Connected'}}
         #broker
-            //h3 ws://test.mosquitto.org:8080/mqtt
             input#connect-button.button.button-block.button-positive(type='button', value='Connect', ng-disabled='onConnected')
             input#disconnect-button.button.button-block.button-dark(type='button', value='Disconnect', ng-disabled='!onConnected')
         

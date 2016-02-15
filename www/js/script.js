@@ -313,32 +313,6 @@
     $rootScope.onConnected = false;
     alert_ON = 'blank on';
     alert_OFF = 'blank off';
-    $rootScope.switchLight = function() {
-      console.log('switchLight ID ' + $rootScope.currentLight);
-      if ($scope.lightList[$rootScope.currentLight].isOn === false) {
-        return $scope.pubThis('light' + splitter + $rootScope.currentLight + splitter + txt_OFF);
-      } else {
-        return $scope.pubThis('light' + splitter + $rootScope.currentLight + splitter + txt_ON);
-      }
-    };
-    $rootScope.switchAlarm = function() {
-      console.log('switchAlarm ID ' + $rootScope.currentLight);
-      if ($scope.lightList[$rootScope.currentLight].isAlert === false) {
-        alert_ON = 'off';
-        $scope.pubThis('alert' + splitter + $rootScope.currentLight + splitter + alert_ON + splitter + $rootScope.lightList[$rootScope.currentLight].alertTime + splitter + $rootScope.lightList[$rootScope.currentLight].alertDate + splitter + $rootScope.lightList[$rootScope.currentLight].alertOff + splitter + $rootScope.lightList[$rootScope.currentLight].alertTimeOff);
-      } else if ($scope.lightList[$rootScope.currentLight].isAlert === true) {
-        alert_ON = 'on';
-        $scope.pubThis('alert' + splitter + $rootScope.currentLight + splitter + alert_ON + splitter + $rootScope.lightList[$rootScope.currentLight].alertTime + splitter + $rootScope.lightList[$rootScope.currentLight].alertDate + splitter + $rootScope.lightList[$rootScope.currentLight].alertOff + splitter + $rootScope.lightList[$rootScope.currentLight].alertTimeOff);
-      } else if ($scope.lightList[$rootScope.currentLight].alertOff === false) {
-        alert_OFF = 'off';
-        $scope.pubThis('alert' + splitter + $rootScope.currentLight + splitter + alert_ON + splitter + $rootScope.lightList[$rootScope.currentLight].alertTime + splitter + $rootScope.lightList[$rootScope.currentLight].alertDate + splitter + $rootScope.lightList[$rootScope.currentLight].alertOff + splitter + $rootScope.lightList[$rootScope.currentLight].alertTimeOff);
-      } else if ($scope.lightList[$rootScope.currentLight].alertOff === true) {
-        alert_OFF = 'on';
-        $scope.pubThis('alert' + splitter + $rootScope.currentLight + splitter + alert_ON + splitter + $rootScope.lightList[$rootScope.currentLight].alertTime + splitter + $rootScope.lightList[$rootScope.currentLight].alertDate + splitter + $rootScope.lightList[$rootScope.currentLight].alertOff + splitter + $rootScope.lightList[$rootScope.currentLight].alertTimeOff);
-      } else {
-        $scope.pubThis('No Alert');
-      }
-    };
     return (function() {
       window.Main = {};
       Main.Page = (function() {

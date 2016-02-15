@@ -5,10 +5,8 @@
     ])
 
     app.config ($stateProvider, $urlRouterProvider, $ionicConfigProvider) ->
-        $ionicConfigProvider.tabs.position 'bottom' # other values: top
+        $ionicConfigProvider.tabs.position 'bottom'
         $stateProvider.state('tabs',
-#    app.config ($stateProvider, $urlRouterProvider) ->
-#        $stateProvider.state('tabs',
             url: '/tab'
             controller: 'TabsCtrl'
             templateUrl: 'templates/tabs.html').state('tabs.home',
@@ -37,14 +35,14 @@
         $scope.openMenu = ->
             $ionicSideMenuDelegate.toggleLeft()
 
-        #------รายการหลอด-------#
+        #------รายการสวิตช์-------#
         $rootScope.lightList = [
             { text: "Switch 1", isOn: false, isAlert: false, alertDate: ['sun'], alertTime: '00:00', alertOff: false, alertTimeOff: '23:59' }
             { text: "Switch 2", isOn: false, isAlert: false, alertDate: ['sun'], alertTime: '00:00', alertOff: false, alertTimeOff: '23:59' }
         ]
         $rootScope.dateList = []
 
-        #-----[Button] ตรวจสอบคลิกหลอด-สำคัญ!!!!----#
+        #-----[Button] ตรวจสอบสวิตช์-สำคัญ!!!! เพื่อใช่โชว์ในแท็บ----#
         $rootScope.currentLight = 0
 
         $rootScope.chooseLight = (light) ->
@@ -313,31 +311,6 @@
         alert_ON = 'blank on'
         alert_OFF = 'blank off'
 
-        #---*-*-*-*-*-*-*-*-*-*-*[SUBMIT ZONE]-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*---#
-        $rootScope.switchLight = () ->
-            console.log('switchLight ID ' + $rootScope.currentLight)
-            if $scope.lightList[$rootScope.currentLight].isOn == false
-                $scope.pubThis('light'+splitter+$rootScope.currentLight+splitter+txt_OFF)
-            else
-                $scope.pubThis('light'+splitter+$rootScope.currentLight+splitter+txt_ON)
-
-        $rootScope.switchAlarm = () ->
-            console.log('switchAlarm ID ' + $rootScope.currentLight)
-            if $scope.lightList[$rootScope.currentLight].isAlert == false
-                alert_ON  = 'off'
-                $scope.pubThis('alert'+splitter+$rootScope.currentLight+splitter+alert_ON+splitter+$rootScope.lightList[$rootScope.currentLight].alertTime+splitter+$rootScope.lightList[$rootScope.currentLight].alertDate+splitter+$rootScope.lightList[$rootScope.currentLight].alertOff+splitter+$rootScope.lightList[$rootScope.currentLight].alertTimeOff)
-            else if $scope.lightList[$rootScope.currentLight].isAlert == true
-                alert_ON  = 'on'
-                $scope.pubThis('alert'+splitter+$rootScope.currentLight+splitter+alert_ON+splitter+$rootScope.lightList[$rootScope.currentLight].alertTime+splitter+$rootScope.lightList[$rootScope.currentLight].alertDate+splitter+$rootScope.lightList[$rootScope.currentLight].alertOff+splitter+$rootScope.lightList[$rootScope.currentLight].alertTimeOff)
-            else if $scope.lightList[$rootScope.currentLight].alertOff == false
-                alert_OFF = 'off'
-                $scope.pubThis('alert'+splitter+$rootScope.currentLight+splitter+alert_ON+splitter+$rootScope.lightList[$rootScope.currentLight].alertTime+splitter+$rootScope.lightList[$rootScope.currentLight].alertDate+splitter+$rootScope.lightList[$rootScope.currentLight].alertOff+splitter+$rootScope.lightList[$rootScope.currentLight].alertTimeOff)
-            else if $scope.lightList[$rootScope.currentLight].alertOff == true
-                alert_OFF = 'on'
-                $scope.pubThis('alert'+splitter+$rootScope.currentLight+splitter+alert_ON+splitter+$rootScope.lightList[$rootScope.currentLight].alertTime+splitter+$rootScope.lightList[$rootScope.currentLight].alertDate+splitter+$rootScope.lightList[$rootScope.currentLight].alertOff+splitter+$rootScope.lightList[$rootScope.currentLight].alertTimeOff)
-            else
-                $scope.pubThis('No Alert')
-            return
         #-------------------------[Connect script]-------------------------------------
         (->
             window.Main = {}
